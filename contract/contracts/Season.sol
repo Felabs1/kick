@@ -69,7 +69,7 @@ contract Season {
     //     Team memory newTeam;
     //     newTeam.name = _name;
     //     newTeam.players = new Player[](0);
-    //     newTeam.points = 0;
+    //     newTeam.points = 0;git pu
     //     newTeam.lastFiveMatchesPoints = 0;
     //     leagueTable.push(newTeam);
     // }

@@ -48,14 +48,14 @@ contract Player {
         playerIdCounter++;
         uint256 newPlayerId = playerIdCounter;
 
-        players[newPlayerId] = PlayerData({
-            id: newPlayerId,
-            name: _name,
-            position: _position,
-            nflTeam: _nflTeam,
-            status: Status.Active,
-            totalPoints: 0
-        });
+        players[newPlayerId] = PlayerData(
+            newPlayerId,
+            _name,
+            _position,
+            _nflTeam,
+            Status.Active,
+            0
+        );
 
         emit PlayerAdded(newPlayerId, _name, _position);
         return newPlayerId;
