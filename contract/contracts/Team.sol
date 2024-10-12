@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity ^0.8.25;
+
+interface IKickPlayerNFT {
+    function ownerOf(uint256 tokenId) external view returns (address);
+    function getPlayerRating(uint256 tokenId) external view returns (uint256);
+}
 
 contract FootballTeam {
-    struct Player {
-        uint256 id;
-        string name;
-        uint256 age;
-        string position;
-        uint256 skillLevel; // 1-100
-        bool isActive;
-    }
+    IKickPlayerNFT public kickPlayerNFT;
+
+    enum Position { GK, DEF, MID, FWD }
 
     struct Team {
         uint256 id;
@@ -18,7 +18,6 @@ contract FootballTeam {
         uint256 foundedYear;
         string homeStadium;
         uint256 overallRating; // 1-100
-        uint256[] playerIds;
         uint256 wins;
         uint256 draws;
         uint256 losses;
@@ -27,14 +26,23 @@ contract FootballTeam {
     }
 
     mapping(uint256 => Team) public teams;
-    mapping(uint256 => Player) public players;
+    mapping(uint256 => mapping(Position => uint256[])) public teamPlayers;
     uint256 public teamCount;
-    uint256 public playerCount;
+
+    // Maximum players per position
+    uint256 constant MAX_GOALKEEPERS = 3;
+    uint256 constant MAX_DEFENDERS = 6;
+    uint256 constant MAX_MIDFIELDERS = 6;
+    uint256 constant MAX_FORWARDS = 4;
 
     event TeamCreated(uint256 indexed teamId, string name, address owner);
-    event PlayerAdded(uint256 indexed teamId, uint256 indexed playerId, string name);
-    event PlayerRemoved(uint256 indexed teamId, uint256 indexed playerId);
+    event PlayerAdded(uint256 indexed teamId, uint256 indexed playerTokenId, Position position);
+    event PlayerRemoved(uint256 indexed teamId, uint256 indexed playerTokenId, Position position);
     event TeamStatsUpdated(uint256 indexed teamId, uint256 wins, uint256 draws, uint256 losses);
+
+    constructor(address _kickPlayerNFTAddress) {
+        kickPlayerNFT = IKickPlayerNFT(_kickPlayerNFTAddress);
+    }
 
     function createTeam(string memory _name, uint256 _foundedYear, string memory _homeStadium) public returns (uint256) {
         teamCount++;
@@ -45,7 +53,6 @@ contract FootballTeam {
             foundedYear: _foundedYear,
             homeStadium: _homeStadium,
             overallRating: 50, // Default rating
-            playerIds: new uint256[](0),
             wins: 0,
             draws: 0,
             losses: 0,
@@ -57,103 +64,65 @@ contract FootballTeam {
         return teamCount;
     }
 
-    function addPlayer(uint256 _teamId, string memory _name, uint256 _age, string memory _position, uint256 _skillLevel) public {
+    function addPlayer(uint256 _teamId, uint256 _playerTokenId, Position _position) public {
         require(teams[_teamId].owner == msg.sender, "Only team owner can add players");
-        require(_skillLevel > 0 && _skillLevel <= 100, "Skill level must be between 1 and 100");
+        require(kickPlayerNFT.ownerOf(_playerTokenId) == msg.sender, "You must own the player NFT");
 
-        playerCount++;
-        players[playerCount] = Player({
-            id: playerCount,
-            name: _name,
-            age: _age,
-            position: _position,
-            skillLevel: _skillLevel,
-            isActive: true
-        });
+        uint256[] storage positionPlayers = teamPlayers[_teamId][_position];
+       require(positionPlayers.length < getMaxPlayersForPosition(_position), "Maximum players reached for this position");
 
-        teams[_teamId].playerIds.push(playerCount);
+        positionPlayers.push(_playerTokenId);
         updateTeamRating(_teamId);
 
-        emit PlayerAdded(_teamId, playerCount, _name);
+        emit PlayerAdded(_teamId, _playerTokenId, _position);
     }
 
-    function removePlayer(uint256 _teamId, uint256 _playerId) public {
+    function removePlayer(uint256 _teamId, uint256 _playerTokenId, Position _position) public {
         require(teams[_teamId].owner == msg.sender, "Only team owner can remove players");
-        require(players[_playerId].isActive, "Player is not active");
 
-        players[_playerId].isActive = false;
-
-        // Remove player from team
-        uint256[] storage teamPlayers = teams[_teamId].playerIds;
-        for (uint256 i = 0; i < teamPlayers.length; i++) {
-            if (teamPlayers[i] == _playerId) {
-                teamPlayers[i] = teamPlayers[teamPlayers.length - 1];
-                teamPlayers.pop();
-                break;
+        uint256[] storage positionPlayers = teamPlayers[_teamId][_position];
+        for (uint256 i = 0; i < positionPlayers.length; i++) {
+            if (positionPlayers[i] == _playerTokenId) {
+                positionPlayers[i] = positionPlayers[positionPlayers.length - 1];
+                positionPlayers.pop();
+                updateTeamRating(_teamId);
+                emit PlayerRemoved(_teamId, _playerTokenId, _position);
+                return;
             }
         }
-
-        updateTeamRating(_teamId);
-
-        emit PlayerRemoved(_teamId, _playerId);
+        revert("Player not found in the team");
     }
 
     function updateTeamRating(uint256 _teamId) internal {
-        uint256 totalSkill = 0;
+        uint256 totalRating = 0;
         uint256 playerCount = 0;
 
-        for (uint256 i = 0; i < teams[_teamId].playerIds.length; i++) {
-            Player storage player = players[teams[_teamId].playerIds[i]];
-            if (player.isActive) {
-                totalSkill += player.skillLevel;
-                playerCount++;
-            }
-        }
+        // for (uint8 i = 0; i <= uint8(Position.FWD); i++) {
+        //     Position position = Position(i);
+        //     uint256[] storage positionPlayers = teamPlayers[_teamId][position];
+        //     for (uint256 j = 0; j < positionPlayers.length; j++) {
+        //         totalRating += kickPlayerNFT.getPlayerRating(positionPlayers[j]);
+        //         playerCount++;
+        //     }
+        // }
 
         if (playerCount > 0) {
-            teams[_teamId].overallRating = totalSkill / playerCount;
+            teams[_teamId].overallRating = totalRating / playerCount;
         } else {
             teams[_teamId].overallRating = 0;
         }
     }
 
-    function updateTeamStats(uint256 _teamId, bool _isWin, bool _isDraw, uint256 _goalsScored, uint256 _goalsConceded) public {
-        require(teams[_teamId].owner == msg.sender, "Only team owner can update stats");
-
-        if (_isWin) {
-            teams[_teamId].wins++;
-        } else if (_isDraw) {
-            teams[_teamId].draws++;
-        } else {
-            teams[_teamId].losses++;
-        }
-
-        teams[_teamId].goalsScored += _goalsScored;
-        teams[_teamId].goalsConceded += _goalsConceded;
-
-        emit TeamStatsUpdated(_teamId, teams[_teamId].wins, teams[_teamId].draws, teams[_teamId].losses);
+    function getTeamPlayers(uint256 _teamId, Position _position) public view returns (uint256[] memory) {
+        return teamPlayers[_teamId][_position];
     }
 
-    function getTeam(uint256 _teamId) public view returns (Team memory) {
-        require(_teamId > 0 && _teamId <= teamCount, "Invalid team ID");
-        return teams[_teamId];
-    }
 
-    function getPlayer(uint256 _playerId) public view returns (Player memory) {
-        require(_playerId > 0 && _playerId <= playerCount, "Invalid player ID");
-        return players[_playerId];
-    }
-
-    function getTeamPlayers(uint256 _teamId) public view returns (Player[] memory) {
-        require(_teamId > 0 && _teamId <= teamCount, "Invalid team ID");
-        
-        uint256[] memory teamPlayerIds = teams[_teamId].playerIds;
-        Player[] memory teamPlayers = new Player[](teamPlayerIds.length);
-
-        for (uint256 i = 0; i < teamPlayerIds.length; i++) {
-            teamPlayers[i] = players[teamPlayerIds[i]];
-        }
-
-        return teamPlayers;
+    function getMaxPlayersForPosition(Position _position) public pure returns (uint256) {
+        if (_position == Position.GK) return MAX_GOALKEEPERS;
+        if (_position == Position.DEF) return MAX_DEFENDERS;
+        if (_position == Position.MID) return MAX_MIDFIELDERS;
+        if (_position == Position.FWD) return MAX_FORWARDS;
+        revert("Invalid position");
     }
 }

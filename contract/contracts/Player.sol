@@ -1,137 +1,313 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26; 
+pragma solidity ^0.8.25;
 
-contract Player {
-    enum Position {QB, RB, WR, TE, K, DEF}
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
-    enum Status {Active, Injured, Suspended}
-    enum InjuryServerity {Minor, Moderate, Severe}
+contract KickPlayerNFT is ERC721, Ownable, ReentrancyGuard {
+    uint256 private _nextTokenId;
+
+    enum Position { GK, DEF, MID, FWD }
+    enum Status { Active, Injured, Suspended }
 
     struct PlayerData {
         uint256 id;
         string name;
         Position position;
-        string nflTeam;
+        string club;
         Status status;
-        uint256 totalpoints;
+        uint16 age;
+        uint16 height; // in cm
+        uint16 weight; // in kg
     }
 
-    struct PerformanceStats {
-        uint256 passingYards;
-        uint256 rushingYards;
-        uint256 receivingYards;
-        uint256 totalTouchdowns;
-        uint256 fumbles;
-        uint256 interceptions;
+    struct PhysicalAttributes {
+        uint8 pace;
+        uint8 acceleration;
+        uint8 stamina;
+        uint8 strength;
+        uint8 agility;
+        uint8 balance;
     }
 
-    struct InjuryDetails {
-        string injuryType;
-        InjuryServerity severity;
-        uint256 estimatedRecoveryTime;
+    struct TechnicalAttributes {
+        uint8 ballControl;
+        uint8 dribbling;
+        uint8 shortPassing;
+        uint8 longPassing;
+        uint8 shotPower;
+        uint8 finishing;
+        uint8 heading;
+        uint8 volleys;
+    }
+
+    struct MentalAttributes {
+        uint8 vision;
+        uint8 positioning;
+        uint8 reactions;
+        uint8 composure;
+        uint8 aggression;
+        uint8 interceptions;
+    }
+
+    struct GoalkeeperAttributes {
+        uint8 diving;
+        uint8 handling;
+        uint8 kicking;
+        uint8 reflexes;
+        uint8 positioning;
+    }
+
+    struct CareerStats {
+        uint16 appearances;
+        uint16 goals;
+        uint16 assists;
+        uint16 cleanSheets;
+    }
+
+    struct MarketListing {
+        uint256 price;
+        bool isListed;
     }
 
     mapping(uint256 => PlayerData) public players;
-    mapping(uint256 => PerformanceStats) public playerStats;
-    mapping(uint256 => InjuryDetails) public playerInjuries;
-    mapping(uint256 => uint256[]) public playerGameHistory;
+    mapping(uint256 => PhysicalAttributes) public physicalAttributes;
+    mapping(uint256 => TechnicalAttributes) public technicalAttributes;
+    mapping(uint256 => MentalAttributes) public mentalAttributes;
+    mapping(uint256 => GoalkeeperAttributes) public goalkeeperAttributes;
+    mapping(uint256 => CareerStats) public careerStats;
+    mapping(uint256 => MarketListing) public marketListings;
 
-    uint256 private playerIdCounter;
+    event PlayerMinted(uint256 indexed tokenId, string name, Position position);
+    event PlayerAttributesUpdated(uint256 indexed tokenId);
+    event PlayerListed(uint256 indexed tokenId, uint256 price);
+    event PlayerUnlisted(uint256 indexed tokenId);
+    event PlayerSold(uint256 indexed tokenId, address from, address to, uint256 price);
 
-    event PlayerAdded(uint256 indexed playerId, string name, Position position);
-    event PlayerStatusUpdated(uint256 indexed playerId, Status newStatus);
-    event PlayerStatsUpdated(uint256 indexed playerId, uint256 passingYards, uint256 rushingYards, uint256 receivingYards);
-    event PlayerInjuryReported(uint256 indexed playerId, string injuryType, InjuryServerity severity);
-    event PlayerGameRecorded(uint256 indexed playerId, uint256 gameId, uint256 points);
+    constructor(address initialOwner) ERC721("Kick Player NFT", "KICKPLAYER") Ownable(initialOwner) {}
 
-    function addPlayer(string memory _name, Position _position, string memory _nflTeam) public returns (uint256) {
-        playerIdCounter++;
-        uint256 newPlayerId = playerIdCounter;
+    function mintPlayer(
+        string memory _name,
+        Position _position,
+        string memory _club,
+        uint16 _age,
+        uint16 _height,
+        uint16 _weight
+    ) public onlyOwner returns (uint256) {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(msg.sender, tokenId);
 
-        players[newPlayerId] = PlayerData(
-            newPlayerId,
-            _name,
-            _position,
-            _nflTeam,
-            Status.Active,
-            0
-        );
+        players[tokenId] = PlayerData({
+            id: tokenId,
+            name: _name,
+            position: _position,
+            club: _club,
+            status: Status.Active,
+            age: _age,
+            height: _height,
+            weight: _weight
+        });
 
-        emit PlayerAdded(newPlayerId, _name, _position);
-        return newPlayerId;
+        emit PlayerMinted(tokenId, _name, _position);
+        return tokenId;
     }
 
-    function updatePlayerStatus(uint256 _playerId, Status _newStatus) public {
-        require(players[_playerId].id != 0, "Player does not exist");
-        players[_playerId].status = _newStatus;
-        emit PlayerStatusUpdated(_playerId, _newStatus);
+    function setPhysicalAttributes(
+        uint256 _tokenId,
+        uint8 _pace,
+        uint8 _acceleration,
+        uint8 _stamina,
+        uint8 _strength,
+        uint8 _agility,
+        uint8 _balance
+    ) public onlyOwner {
+        require(_ownerOf(_tokenId) != address(0), "Player does not exist");
+        physicalAttributes[_tokenId] = PhysicalAttributes({
+            pace: _pace,
+            acceleration: _acceleration,
+            stamina: _stamina,
+            strength: _strength,
+            agility: _agility,
+            balance: _balance
+        });
+        emit PlayerAttributesUpdated(_tokenId);
     }
 
-    function updatePlayerPoints(uint256 _playerId, uint256 _points) public {
-        require(players[_playerId].id != 0, "Player does not exist");
-        players[_playerId].totalpoints += _points;
+    function setTechnicalAttributes(
+        uint256 _tokenId,
+        uint8 _ballControl,
+        uint8 _dribbling,
+        uint8 _shortPassing,
+        uint8 _longPassing,
+        uint8 _shotPower,
+        uint8 _finishing,
+        uint8 _heading,
+        uint8 _volleys
+    ) public onlyOwner {
+        require(_exists(_tokenId), "Player does not exist");
+        technicalAttributes[_tokenId] = TechnicalAttributes({
+            ballControl: _ballControl,
+            dribbling: _dribbling,
+            shortPassing: _shortPassing,
+            longPassing: _longPassing,
+            shotPower: _shotPower,
+            finishing: _finishing,
+            heading: _heading,
+            volleys: _volleys
+        });
+        emit PlayerAttributesUpdated(_tokenId);
     }
 
-    function getPlayer(uint256 _playerId) public view returns (PlayerData memory) {
-        require(players[_playerId].id != 0, "Player does not exist");
-        return players[_playerId];
-    }
-
-    function updatePlayerStats(
-        uint256 _playerId, 
-        uint256 _passingYards, 
-        uint256 _rushingYards, 
-        uint256 _receivingYards, 
-        uint256 _totalTouchdowns, 
-        uint256 _fumbles, 
-        uint256 _interceptions) public {
-
-        require(players[_playerId].id != 0, "Player does not exist");
-        playerStats[_playerId] = PerformanceStats({
-            passingYards: _passingYards,
-            rushingYards: _rushingYards,
-            receivingYards: _receivingYards,
-            totalTouchdowns: _totalTouchdowns,
-            fumbles: _fumbles,
+    function setMentalAttributes(
+        uint256 _tokenId,
+        uint8 _vision,
+        uint8 _positioning,
+        uint8 _reactions,
+        uint8 _composure,
+        uint8 _aggression,
+        uint8 _interceptions
+    ) public onlyOwner {
+        require(_exists(_tokenId), "Player does not exist");
+        mentalAttributes[_tokenId] = MentalAttributes({
+            vision: _vision,
+            positioning: _positioning,
+            reactions: _reactions,
+            composure: _composure,
+            aggression: _aggression,
             interceptions: _interceptions
         });
-
-        emit PlayerStatsUpdated(_playerId, _passingYards, _rushingYards, _receivingYards);
+        emit PlayerAttributesUpdated(_tokenId);
     }
 
-    function reportPlayerInjury(uint256 _playerId, string memory _injuryType, InjuryServerity _severity, uint256 _estimatedRecoveryTime) public {
-        require(players[_playerId].id != 0, "Player does not exist");
-        playerInjuries[_playerId] = InjuryDetails({
-            injuryType: _injuryType,
-            severity: _severity,
-            estimatedRecoveryTime: _estimatedRecoveryTime
+    function setGoalkeeperAttributes(
+        uint256 _tokenId,
+        uint8 _diving,
+        uint8 _handling,
+        uint8 _kicking,
+        uint8 _reflexes,
+        uint8 _positioning
+    ) public onlyOwner {
+        require(_exists(_tokenId), "Player does not exist");
+        require(players[_tokenId].position == Position.GK, "Player is not a goalkeeper");
+        goalkeeperAttributes[_tokenId] = GoalkeeperAttributes({
+            diving: _diving,
+            handling: _handling,
+            kicking: _kicking,
+            reflexes: _reflexes,
+            positioning: _positioning
         });
-        players[_playerId].status = Status.Injured;
-
-        emit PlayerInjuryReported(_playerId, _injuryType, _severity);
+        emit PlayerAttributesUpdated(_tokenId);
     }
 
-    function recordPlayerGame(uint256 _playerId, uint256 _gameId, uint256 _points) public {
-        require(players[_playerId].id !=0, "Player does not exist");
-        playerGameHistory[_playerId].push(_gameId);
-        updatePlayerPoints(_playerId, _points);
-
-        emit PlayerGameRecorded(_playerId, _gameId, _points);
+    function updateCareerStats(
+        uint256 _tokenId,
+        uint16 _appearances,
+        uint16 _goals,
+        uint16 _assists,
+        uint16 _cleanSheets
+    ) public onlyOwner {
+        require(_exists(_tokenId), "Player does not exist");
+        CareerStats storage stats = careerStats[_tokenId];
+        stats.appearances += _appearances;
+        stats.goals += _goals;
+        stats.assists += _assists;
+        stats.cleanSheets += _cleanSheets;
     }
 
-    function getPlayerStats(uint256 _playerId) public view returns (PerformanceStats memory) {
-        require(players[_playerId].id != 0, "Player does not exist");
-        return playerStats[_playerId];
+
+    function getPlayer(uint256 _tokenId) public view returns (PlayerData memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        return players[_tokenId];
     }
 
-    function getPlayerInjuryDetails(uint256 _playerId) public view returns (InjuryDetails memory) {
-        require(players[_playerId].id != 0, "Player does not exist");
-        return playerInjuries[_playerId];
+    function getPhysicalAttributes(uint256 _tokenId) public view returns (PhysicalAttributes memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        return physicalAttributes[_tokenId];
     }
 
-    function getPlayerGameHistory(uint256 _playerId) public view returns (uint256[] memory) {
-        require(players[_playerId].id != 0, "Player does not exist");
-        return playerGameHistory[_playerId];
+    function getTechnicalAttributes(uint256 _tokenId) public view returns (TechnicalAttributes memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        return technicalAttributes[_tokenId];
+    }
+
+    function getMentalAttributes(uint256 _tokenId) public view returns (MentalAttributes memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        return mentalAttributes[_tokenId];
+    }
+
+    function getGoalkeeperAttributes(uint256 _tokenId) public view returns (GoalkeeperAttributes memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        require(players[_tokenId].position == Position.GK, "Player is not a goalkeeper");
+        return goalkeeperAttributes[_tokenId];
+    }
+
+    function getCareerStats(uint256 _tokenId) public view returns (CareerStats memory) {
+        require(_exists(_tokenId), "Player does not exist");
+        return careerStats[_tokenId];
+    }
+
+    // New marketplace functions
+    function listPlayer(uint256 _tokenId, uint256 _price) public {
+        require(_ownerOf(_tokenId) == msg.sender, "Not the owner");
+        require(_price > 0, "Price must be greater than zero");
+        marketListings[_tokenId] = MarketListing(_price, true);
+        emit PlayerListed(_tokenId, _price);
+    }
+
+    function unlistPlayer(uint256 _tokenId) public {
+        require(_ownerOf(_tokenId) == msg.sender, "Not the owner");
+        require(marketListings[_tokenId].isListed, "Player not listed");
+        delete marketListings[_tokenId];
+        emit PlayerUnlisted(_tokenId);
+    }
+
+    function buyPlayer(uint256 _tokenId) public payable nonReentrant {
+        MarketListing memory listing = marketListings[_tokenId];
+        require(listing.isListed, "Player not listed for sale");
+        require(msg.value >= listing.price, "Insufficient payment");
+
+        address seller = _ownerOf(_tokenId);
+        _safeTransfer(seller, msg.sender, _tokenId, "");
+
+        // Transfer the payment to the seller
+        (bool sent, ) = payable(seller).call{value: msg.value}("");
+        require(sent, "Failed to send Ether");
+
+        delete marketListings[_tokenId];
+
+        emit PlayerSold(_tokenId, seller, msg.sender, msg.value);
+    }
+
+    function transferFrom(
+            address from,
+            address to,
+            uint256 tokenId
+        ) public virtual override {
+            super.transferFrom(from, to, tokenId);
+            _unlistPlayerIfListed(tokenId);
+        }
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory data
+    ) public virtual override {
+        super.safeTransferFrom(from, to, tokenId, data);
+        _unlistPlayerIfListed(tokenId);
+    }
+
+    function _unlistPlayerIfListed(uint256 tokenId) internal {
+        if (marketListings[tokenId].isListed) {
+            delete marketListings[tokenId];
+            emit PlayerUnlisted(tokenId);
+        }
+    }
+
+        // Implement _exists function to check if player exists
+    function _exists(uint256 _tokenId) internal view returns (bool) {
+        return players[_tokenId].id != 0; // Check for valid player ID
     }
 
 }

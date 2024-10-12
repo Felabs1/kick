@@ -4,11 +4,14 @@ import Leaderboard from '../components/LeaderBoard';
 import League from '../components/League';
 import TeamManagement from '../components/Team';
 import GamePlan from '../components/Gameplan';
+import ManagersView from '../components/Manager';
+import { ConnectButton, WalletConnectorModal } from '../components/WalletConnector';
 
 const Home = () => {
   const [activeMenu, setActiveMenu] = useState('home');
   const [isMobile, setIsMobile] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -90,58 +93,14 @@ const Home = () => {
           )}
           <h2 className="text-3xl font-bold">{activeMenu.charAt(0).toUpperCase() + activeMenu.slice(1)}</h2>
           <button className="bg-yellow-500 text-black px-4 py-2 rounded-full flex items-center">
-            <Wallet className="mr-2" size={20} />
-            Connect Wallet
+          <ConnectButton onClick={() => setIsModalOpen(true)} />
           </button>
         </header>
 
         <main>
           {activeMenu === 'home' && (
             <>
-              <section className="mb-12">
-                <h3 className="text-2xl font-semibold mb-4">Your Team Overview</h3>
-                <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                  <p className="text-xl mb-4">Team Value: 100 ETH</p>
-                  <p className="text-xl mb-4">Total Points: 1,234</p>
-                  <p className="text-xl mb-4">Gameweek Points: 78</p>
-                  <button className="bg-green-500 text-white px-4 py-2 rounded">Manage Team</button>
-                </div>
-              </section>
-
-              <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div className="bg-white bg-opacity-10 p-6 rounded-lg flex items-center">
-                  <Trophy className="mr-4" size={32} />
-                  <div>
-                    <h3 className="font-semibold">Leaderboard</h3>
-                    <p>Your Rank: #42</p>
-                  </div>
-                </div>
-                <div className="bg-white bg-opacity-10 p-6 rounded-lg flex items-center">
-                  <Users className="mr-4" size={32} />
-                  <div>
-                    <h3 className="font-semibold">Leagues</h3>
-                    <p>5 Active Leagues</p>
-                  </div>
-                </div>
-                <div className="bg-white bg-opacity-10 p-6 rounded-lg flex items-center">
-                  <TrendingUp className="mr-4" size={32} />
-                  <div>
-                    <h3 className="font-semibold">Player Market</h3>
-                    <p>238 Players Available</p>
-                  </div>
-                </div>
-              </section>
-
-              <section>
-                <h3 className="text-2xl font-semibold mb-4">Upcoming Fixtures</h3>
-                <div className="bg-white bg-opacity-10 p-6 rounded-lg">
-                  <ul>
-                    <li className="mb-2">Man City vs Liverpool - Sat, 15:00</li>
-                    <li className="mb-2">Chelsea vs Arsenal - Sun, 14:00</li>
-                    <li>Man United vs Tottenham - Sun, 16:30</li>
-                  </ul>
-                </div>
-              </section>
+              <ManagersView />
             </>
           )}
 
@@ -174,6 +133,7 @@ const Home = () => {
       )}
       {isMobile && renderSidebar()}
       {isMobile && renderMobileNav()}
+      <WalletConnectorModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
