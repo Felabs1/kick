@@ -27,7 +27,7 @@ const TeamManagement = () => {
   const totalPoints = teamPlayers.reduce((sum, player) => sum + player.points, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-indigo-900 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-900 text-white p-8">
       <header className="flex justify-between items-center mb-12">
         <button className="bg-green-500 text-white px-4 py-2 rounded-full">
           Save Team
@@ -37,7 +37,7 @@ const TeamManagement = () => {
       <main>
         <section className="mb-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white bg-opacity-10 p-6 rounded-lg flex items-center">
-            <Shirt className="mr-4 text-blue-400" size={32} />
+            <Shirt className="mr-4 text-slate-400" size={32} />
             <div>
               <h3 className="font-semibold">Squad</h3>
               <p>11/15 Players</p>
@@ -73,7 +73,7 @@ const TeamManagement = () => {
               {['All', 'GK', 'DEF', 'MID', 'FWD'].map(pos => (
                 <button
                   key={pos}
-                  className={`px-4 py-2 rounded-full ${selectedPosition === pos ? 'bg-blue-500' : 'bg-white bg-opacity-20'}`}
+                  className={`px-4 py-2 rounded-full ${selectedPosition === pos ? 'bg-slate-500' : 'bg-white bg-opacity-20'}`}
                   onClick={() => setSelectedPosition(pos)}
                 >
                   {pos}
@@ -114,7 +114,7 @@ const TeamManagement = () => {
           <h2 className="text-2xl font-semibold mb-4">Transfer Market</h2>
           <div className="bg-white bg-opacity-10 p-6 rounded-lg">
             <p className="mb-4">Browse available players and make transfers to improve your team.</p>
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg">
+            <button className="bg-slate-500 text-white px-6 py-3 rounded-lg">
               Open Transfer Market
             </button>
           </div>

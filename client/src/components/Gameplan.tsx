@@ -65,7 +65,7 @@ const GamePlan: React.FC = () => {
         </div>
         {[...Array(def)].map((_, i) => (
           <div key={`def-${i}`} className="absolute bottom-1/4 transform -translate-x-1/2" style={{ left: `${(i + 1) * 100 / (def + 1)}%` }}>
-            <div className="w-8 h-8 bg-blue-500 rounded-full"></div>
+            <div className="w-8 h-8 bg-slate-500 rounded-full"></div>
           </div>
         ))}
         {[...Array(mid)].map((_, i) => (
@@ -83,7 +83,7 @@ const GamePlan: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white p-8 min-h-screen">
+    <div className="bg-gradient-to-br from-slate-900 to-slate-900 text-white p-8 min-h-screen">
       <h1 className="text-3xl font-bold mb-8">Game Plan</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -92,7 +92,7 @@ const GamePlan: React.FC = () => {
           <div className="mb-6">
             <label className="block mb-2">Formation</label>
             <select 
-              className="w-full bg-blue-800 p-2 rounded"
+              className="w-full bg-slate-800 p-2 rounded"
               value={formation}
               onChange={(e) => setFormation(e.target.value as Formation)}
             >
@@ -106,7 +106,7 @@ const GamePlan: React.FC = () => {
             <div>
               <label className="block mb-2">Attacking Style</label>
               <select 
-                className="w-full bg-blue-800 p-2 rounded"
+                className="w-full bg-slate-800 p-2 rounded"
                 value={attackingStyle}
                 onChange={(e) => setAttackingStyle(e.target.value as AttackingStyle)}
               >
@@ -116,7 +116,7 @@ const GamePlan: React.FC = () => {
             <div>
               <label className="block mb-2">Defensive Style</label>
               <select 
-                className="w-full bg-blue-800 p-2 rounded"
+                className="w-full bg-slate-800 p-2 rounded"
                 value={defensiveStyle}
                 onChange={(e) => setDefensiveStyle(e.target.value as DefensiveStyle)}
               >
@@ -128,11 +128,11 @@ const GamePlan: React.FC = () => {
 
         <div>
           <h2 className="text-2xl font-semibold mb-4">Player Roles and Instructions</h2>
-          <div className="bg-blue-800 p-4 rounded">
+          <div className="bg-slate-800 p-4 rounded">
             {players.map(player => (
               <div key={player.id} className="mb-4 last:mb-0">
                 <button
-                  className="w-full text-left p-2 bg-blue-700 rounded flex justify-between items-center"
+                  className="w-full text-left p-2 bg-slate-700 rounded flex justify-between items-center"
                   onClick={() => setSelectedPlayer(selectedPlayer === player.id ? null : player.id)}
                 >
                   <span>{player.name} - {player.role}</span>
@@ -142,7 +142,7 @@ const GamePlan: React.FC = () => {
                   <div className="mt-2 pl-4">
                     <div className="mb-2">
                       <label className="block mb-1">Role</label>
-                      <select className="w-full bg-blue-600 p-2 rounded">
+                      <select className="w-full bg-slate-600 p-2 rounded">
                         {playerRoles[player.position].map(role => (
                           <option key={role} value={role}>{role}</option>
                         ))}

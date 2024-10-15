@@ -37,7 +37,7 @@ const Home = () => {
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   const renderSidebar = () => (
-    <nav className={`${isMobile ? 'fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-200 ease-in-out' : 'w-64'} ${isMobile && !sidebarOpen ? '-translate-x-full' : 'translate-x-0'} bg-blue-800 p-6`}>
+    <nav className={`${isMobile ? 'fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-200 ease-in-out' : 'w-64'} ${isMobile && !sidebarOpen ? '-translate-x-full' : 'translate-x-0'} bg-slate-800 p-6`}>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">Kick</h1>
         {isMobile && (
@@ -50,7 +50,7 @@ const Home = () => {
         {menuItems.map((item) => (
           <li key={item.label} className="mb-4">
             <button
-              className={`flex items-center w-full p-2 rounded-lg ${activeMenu === item.label.toLowerCase() ? 'bg-blue-600' : 'hover:bg-blue-700'}`}
+              className={`flex items-center w-full p-2 rounded-lg ${activeMenu === item.label.toLowerCase() ? 'bg-slate-600' : 'hover:bg-slate-700'}`}
               onClick={() => {
                 setActiveMenu(item.label.toLowerCase());
                 if (isMobile) setSidebarOpen(false);
@@ -66,7 +66,7 @@ const Home = () => {
   );
 
   const renderMobileNav = () => (
-    <nav className="fixed bottom-0 left-0 right-0 bg-blue-800 flex justify-around items-center p-4 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-slate-800 flex justify-around items-center p-4 z-50">
       {menuItems.slice(0, 5).map((item) => (
         <button
           key={item.label}
@@ -81,7 +81,7 @@ const Home = () => {
   );
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
+    <div className="flex min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white">
       {!isMobile && renderSidebar()}
       
       <div className="flex-1 p-8 pb-20 md:pb-8">

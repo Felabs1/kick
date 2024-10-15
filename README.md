@@ -1,5 +1,7 @@
 # kick
 
+## ManagerModule#FootballManagers - 0xe1f937BAB0d4BAe9aD0a09bbf1297fe6b155DDBF
+
 a blockchain-powered fantasy football platform where you can create teams, trade players, and earn rewards with every victory. Play, compete, and win in a decentralized football world!
 
 # Soccer Player Attribute Sheet
