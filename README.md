@@ -1,4 +1,4 @@
-# Kick: Blockchain Gaming Platform for Fantasy Premier League on Lisk
+# Kick: Blockchain Gaming Platform for Fantasy Football on Lisk
 
 
 ## Table of Contents
@@ -15,7 +15,7 @@
 
 ## Introduction
 
-Kick is a gaming platform built on the Lisk network, featuring an immersive Fantasy Premier League experience. It combines the thrill of fantasy football with the innovation of blockchain technology, offering NFT player ownership and a rewards system. Manage your team, compete with friends, and earn valuable rewards based on real-world football performances, all secured and facilitated by the Lisk blockchain.
+Kick is a gaming platform built on the Lisk network, featuring an immersive Fantasy  League experience. It combines the thrill of fantasy football with the innovation of blockchain technology, offering NFT player ownership and a rewards system. Manage your team, compete with friends, and earn valuable rewards based on real-world football performances, all secured and facilitated by the Lisk blockchain.
 
 ## Features
 
@@ -30,7 +30,7 @@ Kick is a gaming platform built on the Lisk network, featuring an immersive Fant
   - Assign player roles and instructions
   - Real-time player performance tracking
 - **Gameplan Builder**: Visually create and adjust your team's formation and strategy.
-- **Live Scoring**: Real-time updates based on Premier League matches.
+- **Live Scoring**: Real-time updates based on  League matches.
 
 ## Technologies Used
 
@@ -72,7 +72,7 @@ Kick is a gaming platform built on the Lisk network, featuring an immersive Fant
 - Assign roles and specific instructions to each player
 
 ### Scoring
-- Points are awarded based on real Premier League player performances
+- Points are awarded based on real  League player performances
 - Bonus points for exceptional performances
 - Multipliers applied based on captain and vice-captain selections
 
