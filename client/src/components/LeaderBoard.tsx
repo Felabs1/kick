@@ -35,13 +35,13 @@ const Leaderboard = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 to-indigo-900 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-900 text-white p-8">
       <header className="flex justify-between items-center mb-12">
         <div className="relative">
           <input
             type="text"
             placeholder="Search teams..."
-            className="bg-white bg-opacity-20 px-4 py-2 rounded-full pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            className="bg-white bg-opacity-20 px-4 py-2 rounded-full pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-slate-300"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -55,19 +55,19 @@ const Leaderboard = () => {
             <h2 className="text-2xl font-semibold">Top Performers</h2>
             <div className="flex space-x-2">
               <button
-                className={`px-4 py-2 rounded-full ${timeRange === 'weekly' ? 'bg-blue-500' : 'bg-white bg-opacity-20'}`}
+                className={`px-4 py-2 rounded-full ${timeRange === 'weekly' ? 'bg-slate-500' : 'bg-white bg-opacity-20'}`}
                 onClick={() => setTimeRange('weekly')}
               >
                 Weekly
               </button>
               <button
-                className={`px-4 py-2 rounded-full ${timeRange === 'monthly' ? 'bg-blue-500' : 'bg-white bg-opacity-20'}`}
+                className={`px-4 py-2 rounded-full ${timeRange === 'monthly' ? 'bg-slate-500' : 'bg-white bg-opacity-20'}`}
                 onClick={() => setTimeRange('monthly')}
               >
                 Monthly
               </button>
               <button
-                className={`px-4 py-2 rounded-full ${timeRange === 'overall' ? 'bg-blue-500' : 'bg-white bg-opacity-20'}`}
+                className={`px-4 py-2 rounded-full ${timeRange === 'overall' ? 'bg-slate-500' : 'bg-white bg-opacity-20'}`}
                 onClick={() => setTimeRange('overall')}
               >
                 Overall

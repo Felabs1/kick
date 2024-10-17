@@ -1,527 +1,121 @@
-# kick
+# Kick: Blockchain Gaming Platform for Fantasy Football on Lisk
+
+
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technologies Used](#technologies-used)
+4. [Getting Started](#getting-started)
+5. [Game Mechanics](#game-mechanics)
+6. [NFT Player Ownership](#nft-player-ownership)
+7. [Rewards System](#rewards-system)
+8. [Lisk Blockchain Integration](#lisk-blockchain-integration)
+9. [Contributing](#contributing)
+10. [License](#license)
 
-a blockchain-powered fantasy football platform where you can create teams, trade players, and earn rewards with every victory. Play, compete, and win in a decentralized football world!
+## Introduction
 
-# Soccer Player Attribute Sheet
+Kick is a gaming platform built on the Lisk network, featuring an immersive Fantasy  League experience. It combines the thrill of fantasy football with the innovation of blockchain technology, offering NFT player ownership and a rewards system. Manage your team, compete with friends, and earn valuable rewards based on real-world football performances, all secured and facilitated by the Lisk blockchain.
 
-## Personal Information
+## Features
 
-- Name: [Player Name]
-- Age: [Age]
-- Nationality: [Country]
-- Height: [Height in cm]
-- Weight: [Weight in kg]
-- Preferred Foot: [Right/Left]
+- **Blockchain Gaming Platform**: A comprehensive ecosystem for fantasy sports and beyond.
+- **NFT Player Ownership**: Acquire and trade unique player NFTs.
+- **Lisk Blockchain Integration**: Secure transactions and transparent gameplay using Lisk's blockchain technology.
+- **Dynamic Rewards System**: Earn valuable rewards through gameplay and achievements.
+- **Player Market**: Buy and sell player NFTs using the platform's .
+- **Custom Leagues**: Create or join private leagues with friends or the global Kick community.
+- **Advanced Team Management**: 
+  - Set formations and tactics
+  - Assign player roles and instructions
+  - Real-time player performance tracking
+- **Gameplan Builder**: Visually create and adjust your team's formation and strategy.
+- **Live Scoring**: Real-time updates based on  League matches.
 
-## Position
+## Technologies Used
 
-Primary Position: [e.g., Striker, Midfielder, Defender, Goalkeeper]
-Secondary Positions: [List any]
+- Lisk 
+- React.js
+- TypeScript
+- Tailwind CSS
+- Node.js backend
 
-## Key Attributes (Rate from 1-99)
+## Getting Started
 
-### Physical
+1. Clone the repository:
+   ```
+   git clone https://github.com/Felabs1/kick
+   ```
 
-- Pace: []
-- Acceleration: []
-- Stamina: []
-- Strength: []
-- Jumping: []
+2. Install dependencies:
+   ```
+   cd kick/client
+   npm install
+   ```
 
-### Technical
+3. Set up environment variables:
+   - Create a `.env` file in the root directory
+   - Add necessary variables ()
 
-- Ball Control: []
-- Dribbling: []
-- First Touch: []
-- Passing: []
-- Shooting: []
+4. Start the development server:
+   ```
+   npm run dev
+   ```
 
-### Mental
+5. Open your browser and navigate to `http://localhost:5173`
 
-- Attack Positioning: []
-- Vision: []
-- Composure: []
-- Aggression: []
-- Interceptions: []
+## Game Mechanics
 
-### Goalkeeping (if applicable)
+### Team Management
+- Build your squad with unique player NFTs
+- Choose your starting 11 and set your formation
+- Assign roles and specific instructions to each player
 
-- Diving: []
-- Positioning: []
-- Handling: []
-- Kicking: []
-- Reflexes: []
+### Scoring
+- Points are awarded based on real  League player performances
+- Bonus points for exceptional performances
+- Multipliers applied based on captain and vice-captain selections
 
-## Special Abilities
+### Leagues
+- Join the global Kick league automatically
+- Create or join private leagues with friends
+- Compete for exciting rewards and exclusive NFT trophies
 
-- [e.g., Long Shot Taker, Dribbler, Playmaker, etc.]
+## NFT Player Ownership
 
-## Overall Rating: []
+- Each player in Kick is represented as a unique NFT on the Lisk blockchain
+- Players can be bought, sold, and traded on the Kick marketplace
+- NFT attributes include player stats, rarity, and special abilities
+- Limited edition and seasonal player NFTs available for collectors
 
-Notes:
-[Any additional information about the player's style, career highlights, etc.]
+## Rewards System
 
-# Soccer Team Sheet
+Kick features a comprehensive rewards system to incentivize gameplay and community engagement:
 
-## Team Information
+- **Match Rewards**: Earn rewards based on your team's performance in each gameweek
+- **Achievement NFTs**: Unlock special NFTs for reaching milestones or exceptional performances
+- **Season Prizes**: Top managers receive substantial rewards and exclusive NFTs at the end of each season
+- **Community Rewards**: Get rewarded for contributing to the Kick ecosystem (e.g., creating content, organizing tournaments)
+- **Staking Benefits**: Stake your Kick assets or player NFTs to earn additional benefits
 
-- Team Name: [Team Name]
-- Manager: [Manager Name]
-- Home Stadium: [Stadium Name]
-- Capacity: [Stadium Capacity]
-- Founded: [Year]
-- League: [League Name]
+## Lisk Blockchain Integration
 
-## Formation: [e.g., 4-4-2, 4-3-3, 3-5-2]
+Kick leverages the Lisk blockchain to provide a secure and transparent gaming experience:
 
-## Starting Lineup
+- **Lisk Account**: Use your Lisk account to manage your team, NFTs, and transactions
+- **Custom Transactions**: Team management, NFT trades, and reward distributions are handled via custom transactions on the Lisk blockchain
+- **In-game Economy**: Use the platform's for all in-game transactions
+- **NFT Standard**: Utilizes Lisk's NFT standards for player cards and achievement badges
+- **Decentralized Storage**: Player data, game states, and NFT metadata are stored on the Lisk blockchain, ensuring transparency and immutability
 
-1. GK: [Player Name] (#[Jersey Number])
-2. DEF: [Player Name] (#[Jersey Number])
-3. DEF: [Player Name] (#[Jersey Number])
-4. DEF: [Player Name] (#[Jersey Number])
-5. DEF: [Player Name] (#[Jersey Number])
-6. MID: [Player Name] (#[Jersey Number])
-7. MID: [Player Name] (#[Jersey Number])
-8. MID: [Player Name] (#[Jersey Number])
-9. FWD: [Player Name] (#[Jersey Number])
-10. FWD: [Player Name] (#[Jersey Number])
-11. FWD: [Player Name] (#[Jersey Number])
+## Contributing
 
-## Substitutes
+We welcome contributions to the Kick gaming platform! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) file for details on our code of conduct and the process for submitting pull requests.
 
-12. [Position]: [Player Name] (#[Jersey Number])
-13. [Position]: [Player Name] (#[Jersey Number])
-14. [Position]: [Player Name] (#[Jersey Number])
-15. [Position]: [Player Name] (#[Jersey Number])
-16. [Position]: [Player Name] (#[Jersey Number])
-17. [Position]: [Player Name] (#[Jersey Number])
-18. [Position]: [Player Name] (#[Jersey Number])
+## License
 
-## Team Tactics
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-- Attacking Style: [e.g., Possession, Counter-attack, Direct]
-- Defensive Style: [e.g., High Press, Low Block, Zonal Marking]
-- Width: [Narrow/Wide]
-- Depth: [Deep/High]
+---
 
-## Set Piece Takers
-
-- Corner Kicks: [Player Name]
-- Free Kicks: [Player Name]
-- Penalties: [Player Name]
-
-## Team Attributes (Rate from 1-5 stars)
-
-- Attack: [★★★☆☆]
-- Midfield: [★★★☆☆]
-- Defense: [★★★☆☆]
-- Overall: [★★★☆☆]
-
-## Key Players
-
-1. [Player Name] - [Brief description of role and strengths]
-2. [Player Name] - [Brief description of role and strengths]
-3. [Player Name] - [Brief description of role and strengths]
-
-## Team Strengths
-
-- [e.g., Strong defense, Rapid counter-attacks, Set pieces]
-
-## Team Weaknesses
-
-- [e.g., Lack of pace in defense, Inconsistent goalscoring]
-
-Notes:
-[Any additional information about the team's playing style, recent form, or objectives for the season]
-
-# Soccer Season Sheet
-
-## Season Information
-
-- League: [League Name]
-- Season: [Year-Year, e.g., 2023-2024]
-- Start Date: [DD/MM/YYYY]
-- End Date: [DD/MM/YYYY]
-
-## League Table
-
-| Position | Team        | Played | Won | Drawn | Lost | GF  | GA  | GD  | Points |
-| -------- | ----------- | ------ | --- | ----- | ---- | --- | --- | --- | ------ |
-| 1        | [Team Name] | 0      | 0   | 0     | 0    | 0   | 0   | 0   | 0      |
-| 2        | [Team Name] | 0      | 0   | 0     | 0    | 0   | 0   | 0   | 0      |
-
-...
-[Complete for all teams]
-
-## Top Scorers
-
-1. [Player Name] ([Team]) - [Goals]
-2. [Player Name] ([Team]) - [Goals]
-3. [Player Name] ([Team]) - [Goals]
-   ...
-   [List top 10 scorers]
-
-## Top Assisters
-
-1. [Player Name] ([Team]) - [Assists]
-2. [Player Name] ([Team]) - [Assists]
-3. [Player Name] ([Team]) - [Assists]
-   ...
-   [List top 10 assisters]
-
-## Clean Sheets
-
-1. [Goalkeeper Name] ([Team]) - [Clean Sheets]
-2. [Goalkeeper Name] ([Team]) - [Clean Sheets]
-3. [Goalkeeper Name] ([Team]) - [Clean Sheets]
-   ...
-   [List top 5 goalkeepers]
-
-## Form Guide (Last 5 Matches)
-
-1. [Team Name]: [W-D-L-W-W]
-2. [Team Name]: [L-W-W-D-W]
-   ...
-   [Complete for all teams]
-
-## Monthly Awards
-
-### August
-
-- Player of the Month: [Player Name] ([Team])
-- Manager of the Month: [Manager Name] ([Team])
-
-[Repeat for each month of the season]
-
-## Season Records
-
-- Biggest Win: [Team] [Score] [Team] (Date)
-- Highest Scoring Game: [Team] [Score] [Team] (Date)
-- Longest Winning Streak: [Team] ([Number] games)
-- Longest Unbeaten Run: [Team] ([Number] games)
-
-## Transfers
-
-### Summer Transfer Window
-
-- Highest Fee: [Player Name] from [Team] to [Team] for [Amount]
-- Most Expensive Signing: [Team] ([Player Name] for [Amount])
-- Most Active Club: [Team] ([Number] ins, [Number] outs)
-
-### Winter Transfer Window
-
-[Same structure as Summer Transfer Window]
-
-## Injuries
-
-- Longest Injury: [Player Name] ([Team]) - [Duration] with [Injury Type]
-- Most Injury-Prone Team: [Team] ([Number] significant injuries)
-
-## Disciplinary Record
-
-- Most Yellow Cards: [Player Name] ([Team]) - [Number]
-- Most Red Cards: [Player Name] ([Team]) - [Number]
-- Team Fair Play Award: [Team]
-
-## European Qualification
-
-- Champions League: [Teams that qualified]
-- Europa League: [Teams that qualified]
-- Conference League: [Teams that qualified]
-
-## Relegated Teams
-
-1. [Team Name]
-2. [Team Name]
-3. [Team Name]
-
-## End of Season Awards
-
-- Player of the Season: [Player Name] ([Team])
-- Young Player of the Season: [Player Name] ([Team])
-- Manager of the Season: [Manager Name] ([Team])
-- Goal of the Season: [Player Name] ([Team]) vs [Opposition] (Date)
-
-Notes:
-[Any additional notable events, controversies, or highlights from the season]
-
-# Soccer Cup Competition Sheet
-
-## Cup Information
-
-- Cup Name: [Full Name, e.g., FA Cup, Copa del Rey]
-- Country/Region: [Country or Region]
-- Organizer: [e.g., The Football Association]
-- Founded: [Year]
-- Current Champion: [Team Name]
-- Most Successful Club: [Team Name] ([Number] titles)
-
-## Tournament Structure
-
-- Number of Teams: [Total number of teams]
-- Rounds: [List of rounds, e.g., Preliminary, First Round, Second Round, etc.]
-- Final Venue: [Stadium Name]
-
-## Participating Teams
-
-- [List of all participating teams, organized by their entry round]
-
-## Prize Money
-
-- Winner: [Amount]
-- Runner-up: [Amount]
-- Semi-finalists: [Amount]
-- Quarter-finalists: [Amount]
-  [Continue for other rounds if applicable]
-
-## Results
-
-### Preliminary Round
-
-- [Team A] [Score] - [Score] [Team B]
-- [Team C] [Score] - [Score] [Team D]
-  [Continue for all matches in this round]
-
-### First Round
-
-[Same format as Preliminary Round]
-
-### Second Round
-
-[Same format as Preliminary Round]
-
-### Third Round
-
-[Same format as Preliminary Round]
-
-### Fourth Round
-
-[Same format as Preliminary Round]
-
-### Fifth Round
-
-[Same format as Preliminary Round]
-
-### Quarter-Finals
-
-- QF1: [Team A] [Score] - [Score] [Team B]
-- QF2: [Team C] [Score] - [Score] [Team D]
-- QF3: [Team E] [Score] - [Score] [Team F]
-- QF4: [Team G] [Score] - [Score] [Team H]
-
-### Semi-Finals
-
-- SF1: [Winner QF1] [Score] - [Score] [Winner QF2]
-- SF2: [Winner QF3] [Score] - [Score] [Winner QF4]
-
-### Final
-
-- [Finalist 1] [Score] - [Score] [Finalist 2]
-- Venue: [Stadium Name]
-- Attendance: [Number]
-- Referee: [Referee Name]
-
-## Top Scorers
-
-1. [Player Name] ([Team]) - [Goals]
-2. [Player Name] ([Team]) - [Goals]
-3. [Player Name] ([Team]) - [Goals]
-   [List top 5 scorers]
-
-## Notable Records
-
-- Biggest Win: [Team] [Score] [Team] (Round)
-- Most Goals in a Match: [Player Name] ([Team]) - [Number] goals vs [Opposition] (Round)
-- Longest Penalty Shootout: [Team] vs [Team] - [Number] penalties (Round)
-
-## Giant Killings
-
-- [Lower league team] defeated [Higher league team] [Score] (Round)
-  [List any notable upsets]
-
-## Cup Final Details
-
-- Man of the Match: [Player Name] ([Team])
-- Goal Scorers: [List of goal scorers with minutes]
-- Yellow Cards: [List of players booked]
-- Red Cards: [List of players sent off]
-
-## Broadcasting Rights
-
-- Domestic Broadcaster: [Company Name]
-- International Broadcasters: [List major international broadcasters]
-
-## Sponsorship
-
-- Title Sponsor: [Company Name]
-- Official Partners: [List major sponsors]
-
-Notes:
-[Any additional information about memorable moments, controversies, or historical significance of this year's cup competition]
-
-# Soccer Manager Sheet
-
-## Personal Information
-
-- Name: [Manager's Full Name]
-- Nationality: [Country]
-- Age: [Age]
-- Date of Birth: [DD/MM/YYYY]
-
-## Career Information
-
-- Current Team: [Team Name]
-- Contract Expiry: [YYYY]
-- Years in Management: [Number]
-
-## Previous Teams Managed
-
-1. [Team Name] ([YYYY-YYYY])
-2. [Team Name] ([YYYY-YYYY])
-3. [Team Name] ([YYYY-YYYY])
-
-## Managerial Achievements
-
-- [Achievement 1, e.g., "Premier League Title 2022"]
-- [Achievement 2, e.g., "FA Cup Winner 2020"]
-- [Achievement 3, e.g., "UEFA Champions League Runner-up 2019"]
-
-## Tactical Preferences
-
-- Preferred Formation: [e.g., 4-3-3, 4-2-3-1, 3-5-2]
-- Playing Style: [e.g., Possession-based, Counter-attacking, High-pressing]
-
-## Managerial Attributes (Rate from 1-20)
-
-- Attacking: []
-- Defending: []
-- Tactical Knowledge: []
-- Player Development: []
-- Man Management: []
-- Mental: []
-- Discipline: []
-- Motivation: []
-- Physio: []
-- Negotiating: []
-
-## Personality Traits
-
-- [e.g., Motivator, Tactician, Disciplinarian, Media Friendly]
-
-## Transfer Market Approach
-
-- Budget Management: [Conservative/Moderate/Aggressive]
-- Youth Development Focus: [Low/Medium/High]
-- Transfer Targets: [Young prospects/Established stars/Mixture]
-
-## Media Handling Style
-
-- [e.g., Charismatic, Reserved, Confrontational, Diplomatic]
-
-## Languages Spoken
-
-- [List languages]
-
-## Coaching Staff
-
-- Assistant Manager: [Name]
-- Fitness Coach: [Name]
-- Goalkeeping Coach: [Name]
-- Youth Team Coach: [Name]
-
-## Overall Rating: [★★★☆☆] (1-5 stars)
-
-Notes:
-[Any additional information about the manager's philosophy, notable quotes, or unique approaches to the game]
-
-# Soccer League Sheet
-
-## League Information
-
-- League Name: [Full Name]
-- Country/Region: [Country or Region]
-- Founded: [Year]
-- Governing Body: [e.g., The Football Association]
-- Number of Teams: [e.g., 20]
-- Current Champion: [Team Name]
-- Most Championships: [Team Name] ([Number] titles)
-
-## League Structure
-
-- Season Duration: [e.g., August to May]
-- Matches per Team: [e.g., 38 (if 20 teams, home and away)]
-- Promotion/Relegation: [Yes/No]
-  - Teams Promoted: [Number]
-  - Teams Relegated: [Number]
-
-## Teams
-
-1. [Team Name] - [City]
-2. [Team Name] - [City]
-3. [Team Name] - [City]
-   ...
-   [List all teams in the league]
-
-## Competition Format
-
-- Points System: [e.g., 3 for a win, 1 for a draw, 0 for a loss]
-- Tiebreakers: [List in order, e.g., 1. Goal difference, 2. Goals scored, 3. Head-to-head]
-
-## Qualification for Continental Competitions
-
-- [Competition Name]: [Number of teams that qualify]
-  [e.g., UEFA Champions League: Top 4 teams]
-- [Competition Name]: [Number of teams that qualify]
-  [e.g., UEFA Europa League: 5th place and Cup Winner]
-
-## Domestic Cups
-
-- [Cup Name]: [Brief description]
-- [Cup Name]: [Brief description]
-
-## Financial Information
-
-- Total League Revenue: [Amount in local currency]
-- TV Rights Deal: [Amount in local currency]
-- Salary Cap (if applicable): [Amount in local currency]
-
-## Notable Records
-
-- Highest Season Points: [Number] by [Team Name] in [Year]
-- Most Goals in a Season: [Number] by [Player Name] ([Team]) in [Year]
-- Longest Unbeaten Run: [Number] games by [Team Name] in [Year]
-
-## Youth Development
-
-- Homegrown Player Rule: [Brief explanation if applicable]
-- Youth Academies: [Any league-wide initiatives]
-
-## Referees and VAR
-
-- Number of Official Referees: [Number]
-- VAR (Video Assistant Referee) Use: [Yes/No]
-
-## League Sponsors
-
-- Title Sponsor: [Company Name]
-- Official Partners: [List major sponsors]
-
-## Broadcasting Rights
-
-- Domestic Broadcaster: [Company Name]
-- International Broadcasters: [List major international broadcasters]
-
-## Social Media and Online Presence
-
-- Official Website: [URL]
-- Twitter: [@handle]
-- Instagram: [@handle]
-- Facebook: [Page name]
-
-## Recent Innovations or Changes
-
-- [e.g., Introduction of winter break, Changes to transfer window]
-
-Notes:
-[Any additional information about the league's history, reputation, or future plans]
+Join Kick today and experience the future of fantasy football on the Lisk blockchain! For more information, visit our website at [www.kickgaming.com](http://www.kickgaming.com) or join our community on [Discord](https://discord.gg/kickgaming).
