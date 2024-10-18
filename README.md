@@ -30,7 +30,7 @@ Kick is a gaming platform built on the Lisk network, featuring an immersive Fant
   - Assign player roles and instructions
   - Real-time player performance tracking
 - **Gameplan Builder**: Visually create and adjust your team's formation and strategy.
-- **Live Scoring**: Real-time updates based on  League matches.
+- **Live Scoring**:  updates based on simulated matches League matches.
 
 ## Technologies Used
 
@@ -72,7 +72,7 @@ Kick is a gaming platform built on the Lisk network, featuring an immersive Fant
 - Assign roles and specific instructions to each player
 
 ### Scoring
-- Points are awarded based on real  League player performances
+- Points are awarded based on simulated  League player performances
 - Bonus points for exceptional performances
 - Multipliers applied based on captain and vice-captain selections
 
@@ -84,7 +84,7 @@ Kick is a gaming platform built on the Lisk network, featuring an immersive Fant
 ## NFT Player Ownership
 
 - Each player in Kick is represented as a unique NFT on the Lisk blockchain
-- Players can be bought, sold, and traded on the Kick marketplace
+- Players can traded on the Kick marketplace
 - NFT attributes include player stats, rarity, and special abilities
 - Limited edition and seasonal player NFTs available for collectors
 
