@@ -115,7 +115,3 @@ We welcome contributions to the Kick gaming platform! Please read our [CONTRIBUT
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
----
-
-Join Kick today and experience the future of fantasy football on the Lisk blockchain! For more information, visit our website at [www.kickgaming.com](http://www.kickgaming.com) or join our community on [Discord](https://discord.gg/kickgaming).
